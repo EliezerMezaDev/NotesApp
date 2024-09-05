@@ -1,0 +1,180 @@
+@import "variables.scss";
+@import "functions.scss";
+
+//? ---- RESET ---- ?//
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+
+  font-family: $f-main;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+picture {
+  display: flex;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+input {
+  background-color: transparent;
+  border: none;
+}
+
+#container-all {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: $c-black;
+
+  scroll-behavior: smooth;
+
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+//? ---- LAYOUT ---- ?//
+.container {
+  width: $container-maxwidth;
+  max-width: $container-maxwidth;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+}
+
+.section {
+  width: 100%;
+  min-height: calc(100vh);
+  display: flex;
+
+  @include phoneSize {
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+  }
+}
+
+.filter {
+  border: 2px solid $c-dist-alt;
+  background-color: transparentize($c-dist-alt, 0.85);
+
+  &.searchbar {
+    border-radius: 2rem;
+
+    background-color: transparent;
+
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-between;
+
+    .inputWrapper {
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+
+      background-color: transparentize($c-dist-alt, 0.85);
+
+      color: $c-white;
+
+      transition: 0.3s;
+
+      &:hover,
+      &:focus-within {
+        background-color: transparentize($c-dist-alt, 0.5);
+      }
+
+      input {
+        color: $c-white;
+
+        &::placeholder {
+          color: transparentize($c-white, 0.75);
+        }
+      }
+    }
+  }
+
+  .iconWrapper {
+    padding: 0.5rem 1rem 0.5rem 0.75rem;
+    background-color: transparentize($c-dist-alt, 0.5);
+
+    transition: 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: transparentize($c-dist-alt, 0.25);
+    }
+
+    .icon {
+      color: transparentize($c-white, 0.25);
+
+      font-size: $f-size-normal;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  place-self: center;
+}
+
+.footer {
+  height: 1.5rem;
+  padding: 0 1rem;
+
+  font-family: $f-main;
+  font-size: $f-size-small;
+
+  color: $c-dist;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    max-width: 968px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__copy {
+    text-align: center;
+
+    a {
+      color: $c-dist;
+    }
+  }
+}
+
+//? ---- SECTIONS ---- ?//
+
