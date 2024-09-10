@@ -1,3 +1,5 @@
+import { NotesContextProvider } from "./context/NotesContext";
+
 import "./styles/app.scss";
 
 import { Navbar } from "./components/globals/Navbar";
@@ -9,8 +11,12 @@ function App() {
   return (
     <>
       <div id="container-all" className="container-all">
-        <Navbar />
-        <Board />
+        <NotesContextProvider>
+          <>
+            <Navbar />
+            <Board />
+          </>
+        </NotesContextProvider>
       </div>
     </>
   );

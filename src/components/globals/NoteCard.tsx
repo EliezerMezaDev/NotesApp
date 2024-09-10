@@ -1,34 +1,57 @@
+import { useContext } from "react";
+import { NotesContext } from "../../context/NotesContext";
+
 import { Note } from "../../assets/interfaces";
 
-import { getFormatedDate } from "../../utils/functions";
-
+//? icons
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 
-const NoteCard = (props: Note) => {
+//? functions
+import { getFormatedDate } from "../../utils/functions";
+
+const NoteCard = (props: { noteSource: Note }) => {
+  const { handleOpenDetailsNote, handleOpenUpsertNote, handleDeleteNote } =
+    useContext(NotesContext);
+
   const MAX_CHARS_TO_TEXT = 87;
 
-  let { title, text, create_at } = props;
-
+  let { noteSource } = props;
 
   return (
     <article className="note">
-      <h2 className="note__title">{title}</h2>
+      <h2
+        className="note__title"
+        onClick={() => handleOpenDetailsNote(noteSource)}
+      >
+        {noteSource.title}
+      </h2>
 
       <div className="note__body">
-        <p className="note__text">{text}</p>
-        
-          <i className="note__view">Ver mas</i>
+        <p className="note__text">{noteSource.text}</p>
+
+        <i
+          className="note__view"
+          onClick={() => handleOpenDetailsNote(noteSource)}
+        >
+          Ver mas
+        </i>
 
         <span className="note__options">
-          <div className="void">{getFormatedDate(create_at!)}</div>
+          <div className="void">{getFormatedDate(noteSource.create_at!)}</div>
 
           <div className="buttons">
-            <button className="buttons__item edit">
+            <button
+              className="buttons__item edit"
+              onClick={() => handleOpenUpsertNote(noteSource)}
+            >
               <FaEdit className="icon" />
             </button>
 
-            <button className="buttons__item delete">
+            <button
+              className="buttons__item delete"
+              onClick={() => handleDeleteNote(noteSource.id)}
+            >
               <FaTrash className="icon" />
             </button>
           </div>

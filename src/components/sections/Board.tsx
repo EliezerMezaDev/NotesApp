@@ -1,48 +1,80 @@
-import { FaSearch } from "react-icons/fa";
-import { Note } from "../../assets/interfaces";
+import { useContext, useEffect, useState } from "react";
+
+import { NotesContext } from "../../context/NotesContext";
+
+//? components
 import NoteCard from "../globals/NoteCard";
 
-const notes: Note[] = [
-  {
-    id: 0,
-    title: "Nota 1",
-    text: "Lorem ipsum dolor sit a ipsum dolor sit a ipsum dolor sit a",
-    create_at: 1712956071075,
-    update_at: 1722956071075,
-  },
-  {
-    id: 1,
-    title: "Nota 2",
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam ipsum possimus fuga fugit architecto. Saepe cupiditate natus quasi debitis recusandae ut, aut rerum nostrum, repudiandae obcaecati perferendis dolorem, architecto distinctio.",
-    create_at: 1722926071075,
-    update_at: 1721952071075,
-  },
-];
+//? interfaces
+import { Note } from "../../assets/interfaces";
+
+//? icons
+import { FaSearch } from "react-icons/fa";
+import { UpsertNote } from "../globals/UpsertNote";
+import { DetailsNote } from "../globals/DetailsNote";
 
 export const Board = () => {
+  const {
+    notes,
+
+    showUpsert,
+    showDetails,
+  } = useContext(NotesContext);
+
+  const [viewNotes, setViewNotes] = useState<Note[]>(notes);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const handleFilter = (event: any) => {
+    event.preventDefault();
+
+    if (!searchTerm || searchTerm === "") {
+      setViewNotes(notes);
+
+      return;
+    }
+
+    setViewNotes(
+      notes.filter(
+        (n: Note) => n.title.includes(searchTerm) || n.text.includes(searchTerm)
+      )
+    );
+  };
+
+  useEffect(() => {
+
+
+    setViewNotes(notes);
+  }, [0]);
+
+  console.log(`<>>> notes <>>>`, notes);
+
+
   return (
     <main className="section board">
       <div className="board__filters filter searchbar">
         <span className="inputWrapper">
-          <input type="text" className="input search" placeholder="buscar..." />
+          <input
+            type="text"
+            className="input search"
+            placeholder="buscar..."
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </span>
 
-        <button className="iconWrapper">
+        <button className="iconWrapper" onClick={(e) => handleFilter(e)}>
           <FaSearch className="icon" />
         </button>
       </div>
 
       <div className="notes">
-        {notes &&
-          notes.map((n: Note, index) => (
-            <NoteCard
-              key={`note_${index}`}
-              title={n.title}
-              text={n.text}
-              create_at={n.create_at}
-            />
+        {viewNotes &&
+          viewNotes.map((n: Note, index: number) => (
+            <NoteCard key={`note_${index}`} noteSource={n} />
           ))}
       </div>
+
+      {showUpsert && <UpsertNote />}
+      {showDetails && <DetailsNote />}
     </main>
   );
 };
