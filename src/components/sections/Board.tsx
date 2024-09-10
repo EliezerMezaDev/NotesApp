@@ -41,12 +41,8 @@ export const Board = () => {
   };
 
   useEffect(() => {
-
-
     setViewNotes(notes);
-  }, [0]);
-
-  console.log(`<>>> notes <>>>`, notes);
+  }, [notes]);
 
 
   return (
