@@ -14,8 +14,6 @@ const NoteCard = (props: { noteSource: Note }) => {
   const { handleOpenDetailsNote, handleOpenUpsertNote, handleDeleteNote } =
     useContext(NotesContext);
 
-  const MAX_CHARS_TO_TEXT = 87;
-
   let { noteSource } = props;
 
   return (

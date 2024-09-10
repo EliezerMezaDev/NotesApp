@@ -72,8 +72,9 @@ const NotesContextProvider = ({ children }: NotesContextProviderProps) => {
     }
 
     setNotes(newNotes);
-
     handleCloseModal();
+
+    window.location.reload()
   }
 
   function handleDeleteNote(id: string) {
@@ -83,6 +84,8 @@ const NotesContextProvider = ({ children }: NotesContextProviderProps) => {
 
     handleCloseModal();
   }
+
+  useEffect(() => {}, [notes]);
 
   return (
     <NotesContext.Provider
